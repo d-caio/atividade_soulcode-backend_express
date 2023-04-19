@@ -1,5 +1,6 @@
 const {DataTypes} = require("sequelize")
 const {connection} = require("./database")
+const Professor = require("./professor")
 
 const Turma = connection.define("turma", {
     nome: {
@@ -8,5 +9,8 @@ const Turma = connection.define("turma", {
         unique: true
     }
 })
+
+Turma.hasOne(Professor)
+Professor.belongsTo(Turma)
 
 module.exports = Turma
