@@ -5,13 +5,19 @@ const Turma = require("./turma")
 const Aluno = connection.define("aluno", {
     nome: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     },
 
     matricula: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+            len: [7]
+        }
     },
 
     dataNasc: {
@@ -22,7 +28,10 @@ const Aluno = connection.define("aluno", {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+            isEmail: true
+        }
     }
 })
 

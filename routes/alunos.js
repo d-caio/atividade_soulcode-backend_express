@@ -1,4 +1,5 @@
 const {Router} = require("express")
+const {Op} = require("sequelize")
 const Aluno = require("../database/aluno")
 const Turma = require("../database/turma")
 
@@ -38,6 +39,21 @@ router.get("/alunos/:id", async (req, res) => {
         aluno ? res.json(aluno) : res.status(404).json({message: "Aluno não encontrado."})
     } catch (erro) {
         res.status(500).json({message: "Um erro aconteceu."})
+    }
+})
+
+router.get("/alunos/procurar/:nome", async (req, res) => {
+    try {
+        const alunos = await Aluno.findAll({
+            where: {
+                nome: {
+                    [Op.like]: `%${req.params.nome}%`
+                },
+            },
+        })
+    res.json(alunos)
+    } catch (erro) {
+        res.status(500).json({ message: "Um erro aconteceu." })
     }
 })
 
