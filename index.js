@@ -17,6 +17,6 @@ app.use(rotaAlunos)
 app.use(rotaProfessors)
 
 app.listen(3000, () => {
-    connection.sync({force: true})
+    connection.sync()
     console.log("Conexão rodando em http://localhost:3000")
 })

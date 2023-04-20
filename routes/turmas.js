@@ -40,12 +40,8 @@ router.put("/turmas/:id", async (req, res) => {
     try {
         const turma = await Turma.findByPk(id)
         if (turma) {
-            try {
-                const turmaAtualizada = await turma.update({ nome })
-                res.json(turmaAtualizada)
-            } catch (erro) {
-                res.status(500).json({ message: "Um erro aconteceu." })
-            }
+            const turmaAtualizada = await turma.update({ nome })
+            res.json(turmaAtualizada)
         } else {
             res.status(404).json({ message: "Turma não encontrada." })
         }
@@ -55,22 +51,18 @@ router.put("/turmas/:id", async (req, res) => {
 })
 
 router.delete("/turmas/:id", async (req, res) => {
-    const {id} = req.params
+    const { id } = req.params
 
     try {
         const turma = await Turma.findByPk(id)
         if (turma) {
-            try {
                 await turma.destroy()
-                res.json({message: "Turma destruída com sucesso."})
-            } catch (erro) {
-                res.status(500).json({message: "Um erro aconteceu."})
-            }
+                res.json({ message: "Turma destruída com sucesso." })       
         } else {
-            res.status(404).json({message: "Turma não encontrada."})
+            res.status(404).json({ message: "Turma não encontrada." })
         }
     } catch (erro) {
-        res.status(500).json({message: "Aconteceu um erro."})
+        res.status(500).json({ message: "Aconteceu um erro." })
     }
 })
 module.exports = router
